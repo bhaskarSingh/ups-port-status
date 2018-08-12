@@ -1,0 +1,13 @@
+main{
+    width: 600px;
+    margin: 0 auto;
+}
+
+table{
+    margin: 20px;
+    border: 1px solid black;
+}
+
+.login-container{
+    margin: 100px
+}

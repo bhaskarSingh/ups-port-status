@@ -1,0 +1,1 @@
+# Site is not responsive, adviced not to use on smaller screen devices
