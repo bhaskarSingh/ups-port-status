@@ -9,7 +9,7 @@ table{
 }
 
 .login-container{
-    margin: 100px
+    margin: 100px;
 }
 
 .switch label input#profile-switch-input[type="checkbox"]:checked + #profile-switch-lever.lever::after {
