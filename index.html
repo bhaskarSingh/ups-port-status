@@ -27,19 +27,21 @@
         <main>
             <h1 class="center" >UPS PORT STATUS</h1>
             <table class="centered">
-                <!-- Switch -->
-                <div class="switch">
-                    <label>
-                    Off
-                    <input id="profile-switch-input" type="checkbox">
-                    <span id="profile-switch-lever"  class="lever red"></span>
-                    On
-                    </label>
-                </div>
                 <thead>
                     <tr>
                         <th>AG PORTS</th>
                         <th>BLOCK</th>
+                        <th>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                block all
+                                <input id="profile-switch-input" class="agPortsParent"  type="checkbox" >
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                unblock all
+                                </label>
+                            </div>
+                        </th>
                         <th>UNBLOCK</th>
                     </tr>
                 </thead>
@@ -47,35 +49,70 @@
                     <tr>
                         <td>AGO1</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                block
+                                <input id="profile-switch-input" class="agPortsChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                     <tr>
                         <td>AGO2</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                    block
+                                <input id="profile-switch-input" class="agPortsChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                    unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                     <tr>
                         <td>AG03</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                    block
+                                <input id="profile-switch-input" class="agPortsChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                    unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                 </tbody>
             </table>
 
             <table class="centered">
-                 <!-- Switch -->
-                 <div class="switch">
-                    <label>
-                    Off
-                    <input id="profile-switch-input" type="checkbox">
-                    <span id="profile-switch-lever"  class="lever red"></span>
-                    On
-                    </label>
-                </div>
                 <thead>
                     <tr>
                         <th>VN PORTS</th>
                         <th>BLOCK</th>
+                        <th>
+                            <!-- Switch -->
+                            <div class="switch">
+                               <label>
+                                   block all
+                               <input id="profile-switch-input" class="vnPortParent" type="checkbox">
+                               <span id="profile-switch-lever"  class="lever red"></span>
+                                   unblock all
+                               </label>
+                           </div>
+                        </th>
                         <th>UNBLOCK</th>
                     </tr>
                 </thead>
@@ -83,35 +120,70 @@
                     <tr>
                         <td>VHO1</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                    block
+                                <input id="profile-switch-input" class="vnPortChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                    unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                     <tr>
                         <td>VHO2</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                    block
+                                <input id="profile-switch-input" class="vnPortChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                    unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                     <tr>
                         <td>VH03</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                    block
+                                <input id="profile-switch-input" class="vnPortChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                    unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                 </tbody>
             </table>
 
             <table class="centered">
-                <!-- Switch -->
-                <div class="switch">
-                    <label>
-                    Off
-                    <input id="profile-switch-input" type="checkbox">
-                    <span id="profile-switch-lever"  class="lever red"></span>
-                    On
-                    </label>
-                </div>
                 <thead>
                     <tr>
                         <th>NGCC PORTS</th>
                         <th>BLOCK</th>
+                        <th>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                block all
+                                <input id="profile-switch-input" class="ngccPortParent" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                unblock all
+                                </label>
+                            </div>
+                        </th>
                         <th>UNBLOCK</th>
                     </tr>
                 </thead>
@@ -119,11 +191,33 @@
                     <tr>
                         <td>NGCC 01</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                block
+                                <input id="profile-switch-input" class="ngccPortChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                     <tr>
                         <td>NGCC 02</td>
                         <td>BLOCK</td>
+                        <td>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                block
+                                <input id="profile-switch-input" class="ngccPortChild" type="checkbox">
+                                <span id="profile-switch-lever"  class="lever red"></span>
+                                unblock
+                                </label>
+                            </div>
+                        </td>
                         <td>UNBLOCK</td>
                     </tr>
                 </tbody>
