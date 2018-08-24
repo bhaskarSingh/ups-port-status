@@ -15,3 +15,13 @@ table{
 .switch label input#profile-switch-input[type="checkbox"]:checked + #profile-switch-lever.lever::after {
     background-color: #fff;
 }
+
+[type="radio"]:disabled:not(:checked)+span:before {
+    border-color: red;
+    background: red;
+}
+
+[type="radio"]:disabled:checked+span:after {
+    background-color: green;
+    border-color: green;
+}

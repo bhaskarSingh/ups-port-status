@@ -31,11 +31,16 @@ $(document).ready(function() {
         if($(this).is(":checked")) {
             console.log("Is checked");
             $(this).siblings().addClass('green');
+            $(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]')
+            .prop('checked', true);
+            console.log($(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]'));
         }
         else {
             console.log("Is Not checked");
             $(this).siblings().removeClass('green');
             $(this).siblings().addClass('red');
+            $(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]')
+            .prop('checked', false);
         }
     })
 });
