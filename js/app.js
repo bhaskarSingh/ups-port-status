@@ -8,14 +8,14 @@ $(document).ready(function() {
                 console.log("Is checked");
                 //Set all the child switches state to unblock
                 $(childSwicheClass).prop('checked', true);
-                $(childSwicheClass).siblings().addClass('green');
+                $(childSwicheClass).siblings('#profile-switch-lever').addClass('green');
                 $(this).siblings().addClass('green');
             }
             else {
                 console.log("Is Not checked");
                 //Set all the child switches state to block
                 $(childSwicheClass).prop('checked', false);
-                $(childSwicheClass).siblings().removeClass('green');
+                $(childSwicheClass).siblings('#profile-switch-lever').removeClass('green');
                 $(this).siblings().removeClass('green');
                 $(this).siblings().addClass('red');
             }
