@@ -1,0 +1,8 @@
+AG01     OP
+AG02     BL
+AG03     OP
+VH01     BL
+VH02     OP
+VH03     BL
+NGCC01   OP
+NGCC02   OP
