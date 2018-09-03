@@ -54,7 +54,11 @@ fetch('../status_file.txt')
    return getStructuredData(text);
 })
 .then((structuredData) => {
-    console.log(structuredData);
+    // console.log(structuredData);
+    return createTable(structuredData);
+})
+.then((tables) => {
+    $('main').append(tables);
 })
 
 /**
@@ -110,90 +114,67 @@ function getStructuredData(text){
 
 function createTable(data){
 
+    let arr = [];
+
+    for(let i = 0; i < data.length; i++ ){
+        console.log(data[i][0][0].substring(0, 2));
+        const lastIndex= data[i][0][0].indexOf(0);
+        const portName = data[i][0][0].substring(0, lastIndex);
+        const template =
+        `<table class="centered">
+            <thead>
+                <tr>
+                    <th>${portName} PORTS</th>
+                    <th>BLOCK</th>
+                    <th>
+                        <!-- Switch -->
+                        <div class="switch">
+                            <label>
+                            block all
+                            <input id="profile-switch-input" class="agPortsParent"  type="checkbox" >
+                            <span id="profile-switch-lever"  class="lever red"></span>
+                            unblock all
+                            </label>
+                        </div>
+                    </th>
+                    <th>UNBLOCK</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${ getTableData(data[i]) }
+            </tbody>
+        </table>`
+        arr.push(template);
+    }
+
+    return arr;
+
 }
-// const template =
-// `<table class="centered">
-// <thead>
-//     <tr>
-//         <th>${item[0].substring(0, 2)} PORTS</th>
-//         <th>BLOCK</th>
-//         <th>
-//             <!-- Switch -->
-//             <div class="switch">
-//                 <label>
-//                 block all
-//                 <input id="profile-switch-input" class="agPortsParent"  type="checkbox" >
-//                 <span id="profile-switch-lever"  class="lever red"></span>
-//                 unblock all
-//                 </label>
-//             </div>
-//         </th>
-//         <th>UNBLOCK</th>
-//     </tr>
-// </thead>
-// <tbody>
-//     <tr>
-//         <td>
-//             <label>
-//                 <input type="radio" class="agPortsChild" disabled="disabled"/>
-//                 <span>${item[0]}</span>
-//             </label>
-//         </td>
-//         <td>BLOCK</td>
-//         <td>
-//             <!-- Switch -->
-//             <div class="switch">
-//                 <label>
-//                 block
-//                 <input id="profile-switch-input" class="agPortsChild" type="checkbox">
-//                 <span id="profile-switch-lever"  class="lever red"></span>
-//                 unblock
-//                 </label>
-//             </div>
-//         </td>
-//         <td>UNBLOCK</td>
-//     </tr>
-//     <tr>
-//         <td>
-//             <label>
-//                 <input type="radio" class="agPortsChild" disabled="disabled" />
-//                 <span>AGO1</span>
-//             </label>
-//         </td>
-//         <td>BLOCK</td>
-//         <td>
-//             <!-- Switch -->
-//             <div class="switch">
-//                 <label>
-//                     block
-//                 <input id="profile-switch-input" class="agPortsChild" type="checkbox">
-//                 <span id="profile-switch-lever"  class="lever red"></span>
-//                     unblock
-//                 </label>
-//             </div>
-//         </td>
-//         <td>UNBLOCK</td>
-//     </tr>
-//     <tr>
-//         <td>
-//             <label>
-//                 <input type="radio" class="agPortsChild" disabled="disabled" />
-//                 <span>AGO1</span>
-//             </label>
-//         </td>
-//         <td>BLOCK</td>
-//         <td>
-//             <!-- Switch -->
-//             <div class="switch">
-//                 <label>
-//                     block
-//                 <input id="profile-switch-input" class="agPortsChild" type="checkbox">
-//                 <span id="profile-switch-lever"  class="lever red"></span>
-//                     unblock
-//                 </label>
-//             </div>
-//         </td>
-//         <td>UNBLOCK</td>
-//     </tr>
-// </tbody>
-// </table>`
+
+function getTableData(data){
+    return data.map((item) => {
+        console.log(item[0])
+        return (
+            `<tr>
+            <td>
+                <label>
+                    <input type="radio" class="agPortsChild" disabled="disabled"/>
+                    <span>${item[0]}</span>
+                </label>
+            </td>
+            <td>BLOCK</td>
+            <td>
+                <div class="switch">
+                    <label>
+                    block
+                    <input id="profile-switch-input" class="agPortsChild" type="checkbox">
+                    <span id="profile-switch-lever"  class="lever red"></span>
+                    unblock
+                    </label>
+                </div>
+            </td>
+            <td>UNBLOCK</td>
+            </tr>`
+        );
+    });
+}
