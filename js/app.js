@@ -73,12 +73,14 @@ const presenter = {
 
     getTableData(data){
         return data.map((item) => {
-            console.log(item[0])
+            console.log(item[1])
+            const setCheckboxState = (item[1] === 'OP'? 'checked' : '');
+            const setCheckboxColor = (item[1] === 'OP'? 'green' : 'red');
             return (
                 `<tr>
                 <td>
                     <label>
-                        <input type="radio" class="agPortsChild" disabled="disabled"/>
+                        <input type="radio" class="agPortsChild" disabled="disabled" ${setCheckboxState} />
                         <span>${item[0]}</span>
                     </label>
                 </td>
@@ -87,8 +89,8 @@ const presenter = {
                     <div class="switch">
                         <label>
                         block
-                        <input id="profile-switch-input" class="agPortsChild" type="checkbox">
-                        <span id="profile-switch-lever"  class="lever red"></span>
+                        <input id="profile-switch-input" class="agPortsChild" type="checkbox" ${setCheckboxState} >
+                        <span id="profile-switch-lever"  class="lever ${setCheckboxColor}"></span>
                         unblock
                         </label>
                     </div>
