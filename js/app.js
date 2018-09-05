@@ -71,7 +71,7 @@ const presenter = {
 
 
 
-    getTableData(data){
+    getTableData(data, child){
         return data.map((item) => {
             console.log(item[1])
             const setCheckboxState = (item[1] === 'OP'? 'checked' : '');
@@ -80,7 +80,7 @@ const presenter = {
                 `<tr>
                 <td>
                     <label>
-                        <input type="radio" class="agPortsChild" disabled="disabled" ${setCheckboxState} />
+                        <input type="radio" class="${child}" disabled="disabled" ${setCheckboxState} />
                         <span>${item[0]}</span>
                     </label>
                 </td>
@@ -89,7 +89,7 @@ const presenter = {
                     <div class="switch">
                         <label>
                         block
-                        <input id="profile-switch-input" class="agPortsChild" type="checkbox" ${setCheckboxState} >
+                        <input id="profile-switch-input" class="${child}" type="checkbox" ${setCheckboxState} >
                         <span id="profile-switch-lever"  class="lever ${setCheckboxColor}"></span>
                         unblock
                         </label>
@@ -98,6 +98,44 @@ const presenter = {
                 <td>UNBLOCK</td>
                 </tr>`
             );
+        });
+    },
+
+    toggleMainSwitch(parentSwitchClass, childSwicheClass){
+        console.log(parentSwitchClass, childSwicheClass);
+        $(function(){
+            //Main toggle switch
+            $(parentSwitchClass).change(function() {
+                if($(this).is(":checked")) {
+                    console.log("Is checked");
+                    //Set all the child switches state to unblock
+                    $(childSwicheClass).prop('checked', true);
+                    $(childSwicheClass).siblings('#profile-switch-lever').addClass('green');
+                    $(this).siblings().addClass('green');
+                }
+                else {
+                    console.log("Is Not checked");
+                    //Set all the child switches state to block
+                    $(childSwicheClass).prop('checked', false);
+                    $(childSwicheClass).siblings('#profile-switch-lever').removeClass('green');
+                    $(this).siblings().removeClass('green');
+                    $(this).siblings().addClass('red');
+                }
+            });
+        });
+    },
+
+    linkMainToggleSwitchToTables(){
+        this.getStructuredData()
+        .then((structuredData) => {
+            for(let i = 0; i < structuredData.length; i++){
+                const LastIndex= structuredData[i][0][0].indexOf(0);
+                const portName = structuredData[i][0][0].substring(0, LastIndex);
+                console.log(portName);
+                const parent = "." + portName + "Parent";
+                const child = "." + portName + "Child";
+                this.toggleMainSwitch(parent, child);
+            }
         });
     }
 }
@@ -112,6 +150,7 @@ const view = {
         .then((tables) => {
             $('main').append(tables);
         });
+        presenter.linkMainToggleSwitchToTables();
     },
 
     createTable(data){
@@ -132,7 +171,7 @@ const view = {
                             <div class="switch">
                                 <label>
                                 block all
-                                <input id="profile-switch-input" class="agPortsParent"  type="checkbox" >
+                                <input id="profile-switch-input" class="${portName}Parent"  type="checkbox" >
                                 <span id="profile-switch-lever"  class="lever red"></span>
                                 unblock all
                                 </label>
@@ -142,7 +181,7 @@ const view = {
                     </tr>
                 </thead>
                 <tbody>
-                    ${ presenter.getTableData(data[i]) }
+                    ${ presenter.getTableData(data[i], portName+"Child") }
                 </tbody>
             </table>`
             arr.push(template);
@@ -156,34 +195,7 @@ const view = {
 view.render();
 
 
-
 $(document).ready(function() {
-
-
-    function toggleMainSwitch(parentSwitchClass, childSwicheClass){
-        //Main toggle switch
-        $(parentSwitchClass).change(function() {
-            if($(this).is(":checked")) {
-                console.log("Is checked");
-                //Set all the child switches state to unblock
-                $(childSwicheClass).prop('checked', true);
-                $(childSwicheClass).siblings('#profile-switch-lever').addClass('green');
-                $(this).siblings().addClass('green');
-            }
-            else {
-                console.log("Is Not checked");
-                //Set all the child switches state to block
-                $(childSwicheClass).prop('checked', false);
-                $(childSwicheClass).siblings('#profile-switch-lever').removeClass('green');
-                $(this).siblings().removeClass('green');
-                $(this).siblings().addClass('red');
-            }
-        });
-    }
-    
-    toggleMainSwitch('.agPortsParent', '.agPortsChild');
-    toggleMainSwitch('.vnPortParent', '.vnPortChild');
-    toggleMainSwitch('.ngccPortParent', '.ngccPortChild');
 
     //Individual toggle switch
     $("input").change(function() {

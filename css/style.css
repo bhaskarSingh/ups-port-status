@@ -25,3 +25,7 @@ table{
     background-color: green;
     border-color: green;
 }
+
+.switch label .lever {
+    background-color: red;
+}
