@@ -69,38 +69,6 @@ const presenter = {
         return mainArr;
     },
 
-
-
-    getTableData(data, child){
-        return data.map((item) => {
-            console.log(item[1])
-            const setCheckboxState = (item[1] === 'OP'? 'checked' : '');
-            const setCheckboxColor = (item[1] === 'OP'? 'green' : 'red');
-            return (
-                `<tr>
-                <td>
-                    <label>
-                        <input type="radio" class="${child}" disabled="disabled" ${setCheckboxState} />
-                        <span>${item[0]}</span>
-                    </label>
-                </td>
-                <td>BLOCK</td>
-                <td>
-                    <div class="switch">
-                        <label>
-                        block
-                        <input id="profile-switch-input" class="${child}" type="checkbox" ${setCheckboxState} >
-                        <span id="profile-switch-lever"  class="lever ${setCheckboxColor}"></span>
-                        unblock
-                        </label>
-                    </div>
-                </td>
-                <td>UNBLOCK</td>
-                </tr>`
-            );
-        });
-    },
-
     toggleMainSwitch(parentSwitchClass, childSwicheClass){
         console.log(parentSwitchClass, childSwicheClass);
         $(function(){
@@ -204,7 +172,7 @@ const view = {
                     </tr>
                 </thead>
                 <tbody>
-                    ${ presenter.getTableData(data[i], portName+"Child") }
+                    ${ this.getTableData(data[i], portName+"Child") }
                 </tbody>
             </table>`
             arr.push(template);
@@ -212,6 +180,36 @@ const view = {
     
         return arr;
     },
+
+    getTableData(data, child){
+        return data.map((item) => {
+            console.log(item[1])
+            const setCheckboxState = (item[1] === 'OP'? 'checked' : '');
+            const setCheckboxColor = (item[1] === 'OP'? 'green' : 'red');
+            return (
+                `<tr>
+                <td>
+                    <label>
+                        <input type="radio" class="${child}" disabled="disabled" ${setCheckboxState} />
+                        <span>${item[0]}</span>
+                    </label>
+                </td>
+                <td>BLOCK</td>
+                <td>
+                    <div class="switch">
+                        <label>
+                        block
+                        <input id="profile-switch-input" class="${child}" type="checkbox" ${setCheckboxState} >
+                        <span id="profile-switch-lever"  class="lever ${setCheckboxColor}"></span>
+                        unblock
+                        </label>
+                    </div>
+                </td>
+                <td>UNBLOCK</td>
+                </tr>`
+            );
+        });
+    }
 
 }
 
