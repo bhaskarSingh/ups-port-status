@@ -69,6 +69,7 @@ const presenter = {
         return mainArr;
     },
 
+    /* Method to create main parent toggle swtich to handle all child switches states */
     toggleMainSwitch(parentSwitchClass, childSwicheClass){
         console.log(parentSwitchClass, childSwicheClass);
         $(function(){
@@ -93,6 +94,7 @@ const presenter = {
         });
     },
 
+    /* Link mainToggleSwitch to all the tables */
     linkMainToggleSwitchToTables(){
         this.getStructuredData()
         .then((structuredData) => {
@@ -107,6 +109,7 @@ const presenter = {
         });
     },
 
+    /* Listen for individual switch event within all child switches within all tables */
     listenForIndividualSwitchEvents(){
         $(function(){
              //Individual toggle switch
@@ -131,6 +134,7 @@ const presenter = {
 }
 
 const view = {
+    /* display structured tables with unique ports values */
     render(){
         presenter.getStructuredData()
         .then((structuredData) => {
@@ -140,10 +144,13 @@ const view = {
         .then((tables) => {
             $('main').append(tables);
         });
+        //Link mainToggle switches to tables
         presenter.linkMainToggleSwitchToTables();
+        //Link Individual switches to table
         presenter.listenForIndividualSwitchEvents();
     },
 
+    /* Create multiple tables distinguished by unique port names */
     createTable(data){
         let arr = [];
 
@@ -181,6 +188,7 @@ const view = {
         return arr;
     },
 
+    /* get the table data */
     getTableData(data, child){
         return data.map((item) => {
             console.log(item[1])
