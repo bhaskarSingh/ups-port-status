@@ -81,6 +81,7 @@ const presenter = {
                     $(childSwicheClass).prop('checked', true);
                     $(childSwicheClass).siblings('#profile-switch-lever').addClass('green');
                     $(this).siblings().addClass('green');
+                    //TODO: Add logic for parent switch here, if it's checked
                 }
                 else {
                     console.log("Is Not checked");
@@ -89,6 +90,7 @@ const presenter = {
                     $(childSwicheClass).siblings('#profile-switch-lever').removeClass('green');
                     $(this).siblings().removeClass('green');
                     $(this).siblings().addClass('red');
+                    //TODO: Add logic for parent switch here, if it's not checked
                 }
             });
         });
