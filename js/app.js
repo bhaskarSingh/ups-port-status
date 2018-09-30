@@ -141,8 +141,9 @@ const presenter = {
         $(function(){
              //Individual toggle switch
             $(".child-switch").change(function() {
+                const portName = $(this).parent('label').parent('.switch').parent('td').prev().prev().find('span').text();
                 if($(this).is(":checked")) {
-                    openModalDialog();
+                    openModalDialog(`Are you sure you want to unblock port ${portName} ?`);
                     $('#dismiss').click(() => {
                         // console.log('dismiss');
                         $(this).prop('checked', false);
@@ -152,7 +153,7 @@ const presenter = {
                     });
                     $('#agree').click(() => {
                         console.log("Is checked");
-                        // console.log($(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]'));
+                        console.log($(this).parent('label').parent('.switch').parent('td').prev().prev().find('span').text());
                         //TODO: Add logic here for if selected individual switch is on
                     });
 
@@ -160,7 +161,7 @@ const presenter = {
                     $(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]').prop('checked', true);
                 }
                 else {
-                    openModalDialog();
+                    openModalDialog(`Are you sure you want to block port ${portName} ?`);
                     $('#agree').click(() => {
                         console.log("Is Not checked");
                         //TODO: Add logic here for if selected individual switch is off
@@ -172,6 +173,7 @@ const presenter = {
                         $(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]').prop('checked', true);
                     })
 
+                    //Set the child switche state to block
                     $(this).siblings().removeClass('green');
                     $(this).siblings().addClass('red');
                     $(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]').prop('checked', false);
@@ -271,11 +273,11 @@ const view = {
 
 view.render();
 
-function createModalDialog(){
+function createModalDialog(text){
     const modal = `
-    <div id="modal1" class="modal">
+    <div id="modal1" class="modal" style="width: 530px; margin-top: 200px;">
         <div class="modal-content">
-            <h5>Are you sure you want to change port status</h5>
+            <h5>${text}</h5>
         </div>
         <div class="modal-footer">
             <button href="#!" id="dismiss" class=" modal-action modal-close waves-effect waves-green btn-flat">Dismiss</button>
@@ -290,9 +292,12 @@ function removeModalDialog(){
     $('#modal1').remove();
 }
 
-function openModalDialog(options = {dismissible: false, onCloseEnd: () => { removeModalDialog(); }}){
-    createModalDialog();
+function openModalDialog(text = "Are you sure you want to change port status ?"){
+    createModalDialog(text);
     const Modalelem = document.querySelector('.modal');
-    const instance = M.Modal.init(Modalelem, options);
-    const val = instance.open();
+    const instance = M.Modal.init(Modalelem, {
+        dismissible: false,
+        onCloseEnd: () => { removeModalDialog(); }
+    });
+    instance.open();
 }
