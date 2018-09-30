@@ -3,7 +3,7 @@ const model = {
     getData(){
         return fetch('../status_file.txt')
         .then((response) => {
-            console.log(response);
+            // console.log(response);
             return response.text();
         })
     }
@@ -71,12 +71,12 @@ const presenter = {
 
     /* Method to create main parent toggle swtich to handle all child switches states */
     toggleMainSwitch(parentSwitchClass, childSwicheClass){
-        console.log(parentSwitchClass, childSwicheClass);
+        // console.log(parentSwitchClass, childSwicheClass);
         $(function(){
             //Main toggle switch
             $(parentSwitchClass).change(function() {
                 if($(this).is(":checked")) {
-                    openModalDialog();
+                    presenter.openModalDialog();
                     $('#dismiss').click(() => {
                         //Set all the child switches state to block
                         $(parentSwitchClass).prop('checked', false);
@@ -87,7 +87,7 @@ const presenter = {
                     })
 
                     $('#agree').click(() => {
-                        console.log("Is checked");
+                        // console.log("Is checked");
                         //TODO: Add logic for parent switch here, if it's checked
                     })
                     //Set all the child switches state to unblock
@@ -96,7 +96,7 @@ const presenter = {
                     $(this).siblings().addClass('green');
                 }
                 else {
-                    openModalDialog();
+                    presenter.openModalDialog();
 
                     $('#dismiss').click(() => {
                         //Set all the child switches state to unblock
@@ -107,7 +107,7 @@ const presenter = {
                     });
 
                     $('#agree').click(() => {
-                        console.log("Is Not checked");
+                        // console.log("Is Not checked");
                         //TODO: Add logic for parent switch here, if it's not checked
                     });
 
@@ -128,7 +128,7 @@ const presenter = {
             for(let i = 0; i < structuredData.length; i++){
                 const LastIndex= structuredData[i][0][0].indexOf(0);
                 const portName = structuredData[i][0][0].substring(0, LastIndex);
-                console.log(portName);
+                // console.log(portName);
                 const parent = "." + portName + "Parent";
                 const child = "." + portName + "Child";
                 this.toggleMainSwitch(parent, child);
@@ -143,7 +143,7 @@ const presenter = {
             $(".child-switch").change(function() {
                 const portName = $(this).parent('label').parent('.switch').parent('td').prev().prev().find('span').text();
                 if($(this).is(":checked")) {
-                    openModalDialog(`Are you sure you want to unblock port ${portName} ?`);
+                    presenter.openModalDialog(`Are you sure you want to unblock port ${portName} ?`);
                     $('#dismiss').click(() => {
                         // console.log('dismiss');
                         $(this).prop('checked', false);
@@ -152,8 +152,8 @@ const presenter = {
                         $(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]').prop('checked', false);
                     });
                     $('#agree').click(() => {
-                        console.log("Is checked");
-                        console.log($(this).parent('label').parent('.switch').parent('td').prev().prev().find('span').text());
+                        // console.log("Is checked");
+                        // console.log($(this).parent('label').parent('.switch').parent('td').prev().prev().find('span').text());
                         //TODO: Add logic here for if selected individual switch is on
                     });
 
@@ -161,9 +161,9 @@ const presenter = {
                     $(this).parent('label').parent('.switch').parent('td').prev().prev().find('input[type=radio]').prop('checked', true);
                 }
                 else {
-                    openModalDialog(`Are you sure you want to block port ${portName} ?`);
+                    presenter.openModalDialog(`Are you sure you want to block port ${portName} ?`);
                     $('#agree').click(() => {
-                        console.log("Is Not checked");
+                        // console.log("Is Not checked");
                         //TODO: Add logic here for if selected individual switch is off
                     });
 
@@ -180,6 +180,16 @@ const presenter = {
                 }
             });
         });
+    },
+
+    openModalDialog(text = "Are you sure you want to change port status ?"){
+        view.createModalDialog(text);
+        const Modalelem = document.querySelector('.modal');
+        const instance = M.Modal.init(Modalelem, {
+            dismissible: false,
+            onCloseEnd: () => { view.removeModalDialog(); }
+        });
+        instance.open();
     }
 }
 
@@ -205,7 +215,7 @@ const view = {
         let arr = [];
 
         for(let i = 0; i < data.length; i++ ){
-            console.log(data[i][0][0].substring(0, 2));
+            // console.log(data[i][0][0].substring(0, 2));
             const lastIndex= data[i][0][0].indexOf(0);
             const portName = data[i][0][0].substring(0, lastIndex);
             const template =
@@ -241,7 +251,7 @@ const view = {
     /* get the table data */
     getTableData(data, child){
         return data.map((item) => {
-            console.log(item[1])
+            // console.log(item[1])
             const setCheckboxState = (item[1] === 'OP'? 'checked' : '');
             const setCheckboxColor = (item[1] === 'OP'? 'green' : 'red');
             return (
@@ -267,37 +277,27 @@ const view = {
                 </tr>`
             );
         });
+    },
+
+    createModalDialog(text){
+        const modal = `
+        <div id="modal1" class="modal" style="width: 530px; margin-top: 200px;">
+            <div class="modal-content">
+                <h5>${text}</h5>
+            </div>
+            <div class="modal-footer">
+                <button href="#!" id="dismiss" class=" modal-action modal-close waves-effect waves-green btn-flat">Dismiss</button>
+                <button href="#!" id="agree" class=" modal-action modal-close waves-effect waves-green btn-flat blue white-text">Agree</button>
+            </div>
+        </div>`
+    
+        $('body').append(modal);
+    },
+
+    removeModalDialog(){
+        $('#modal1').remove();
     }
 
 }
 
 view.render();
-
-function createModalDialog(text){
-    const modal = `
-    <div id="modal1" class="modal" style="width: 530px; margin-top: 200px;">
-        <div class="modal-content">
-            <h5>${text}</h5>
-        </div>
-        <div class="modal-footer">
-            <button href="#!" id="dismiss" class=" modal-action modal-close waves-effect waves-green btn-flat">Dismiss</button>
-            <button href="#!" id="agree" class=" modal-action modal-close waves-effect waves-green btn-flat blue white-text">Agree</button>
-        </div>
-    </div>`
-
-    $('body').append(modal);
-}
-
-function removeModalDialog(){
-    $('#modal1').remove();
-}
-
-function openModalDialog(text = "Are you sure you want to change port status ?"){
-    createModalDialog(text);
-    const Modalelem = document.querySelector('.modal');
-    const instance = M.Modal.init(Modalelem, {
-        dismissible: false,
-        onCloseEnd: () => { removeModalDialog(); }
-    });
-    instance.open();
-}
