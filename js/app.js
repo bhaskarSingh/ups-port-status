@@ -76,21 +76,46 @@ const presenter = {
             //Main toggle switch
             $(parentSwitchClass).change(function() {
                 if($(this).is(":checked")) {
-                    console.log("Is checked");
+                    openModalDialog();
+                    $('#dismiss').click(() => {
+                        //Set all the child switches state to block
+                        $(parentSwitchClass).prop('checked', false);
+                        $(childSwicheClass).prop('checked', false);
+                        $(childSwicheClass).siblings('#profile-switch-lever').removeClass('green');
+                        $(this).siblings().removeClass('green');
+                        $(this).siblings().addClass('red');
+                    })
+
+                    $('#agree').click(() => {
+                        console.log("Is checked");
+                        //TODO: Add logic for parent switch here, if it's checked
+                    })
                     //Set all the child switches state to unblock
                     $(childSwicheClass).prop('checked', true);
                     $(childSwicheClass).siblings('#profile-switch-lever').addClass('green');
                     $(this).siblings().addClass('green');
-                    //TODO: Add logic for parent switch here, if it's checked
                 }
                 else {
-                    console.log("Is Not checked");
+                    openModalDialog();
+
+                    $('#dismiss').click(() => {
+                        //Set all the child switches state to unblock
+                        $(parentSwitchClass).prop('checked', true);
+                        $(childSwicheClass).prop('checked', true);
+                        $(childSwicheClass).siblings('#profile-switch-lever').addClass('green');
+                        $(this).siblings().addClass('green');
+                    });
+
+                    $('#agree').click(() => {
+                        console.log("Is Not checked");
+                        //TODO: Add logic for parent switch here, if it's not checked
+                    });
+
                     //Set all the child switches state to block
                     $(childSwicheClass).prop('checked', false);
                     $(childSwicheClass).siblings('#profile-switch-lever').removeClass('green');
                     $(this).siblings().removeClass('green');
                     $(this).siblings().addClass('red');
-                    //TODO: Add logic for parent switch here, if it's not checked
                 }
             });
         });
