@@ -115,7 +115,7 @@ const presenter = {
     listenForIndividualSwitchEvents(){
         $(function(){
              //Individual toggle switch
-            $("input").change(function() {
+            $(".child-switch").change(function() {
                 if($(this).is(":checked")) {
                     openModalDialog();
                     $('#dismiss').click(() => {
@@ -230,7 +230,7 @@ const view = {
                     <div class="switch">
                         <label>
                         block
-                        <input id="profile-switch-input" class="${child}" type="checkbox" ${setCheckboxState} >
+                        <input id="profile-switch-input" class="${child} child-switch" type="checkbox" ${setCheckboxState} >
                         <span id="profile-switch-lever"  class="lever ${setCheckboxColor}"></span>
                         unblock
                         </label>
