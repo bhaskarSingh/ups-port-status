@@ -69,6 +69,14 @@ const presenter = {
         return mainArr;
     },
 
+    onParentPortUnblocked(portName){
+        console.log(`Parent port ${portName} is unblocked`);
+    },
+
+    onParentPortBlocked(portName){
+        console.log(`Parent port ${portName} is blocked`);
+    },
+
     /* Method to create main parent toggle swtich to handle all child switches states */
     toggleMainSwitch(parentSwitchClass, childSwicheClass){
         // console.log(parentSwitchClass, childSwicheClass);
@@ -89,6 +97,7 @@ const presenter = {
                     $('#agree').click(() => {
                         // console.log("Is checked");
                         //TODO: Add logic for parent switch here, if it's checked
+                        presenter.onParentPortUnblocked(parentSwitchClass);
                     })
                     //Set all the child switches state to unblock
                     $(childSwicheClass).prop('checked', true);
@@ -109,6 +118,7 @@ const presenter = {
                     $('#agree').click(() => {
                         // console.log("Is Not checked");
                         //TODO: Add logic for parent switch here, if it's not checked
+                        presenter.onParentPortBlocked(parentSwitchClass);
                     });
 
                     //Set all the child switches state to block
@@ -136,6 +146,14 @@ const presenter = {
         });
     },
 
+    onIndividualPortUnblocked(portName){
+        console.log(`port ${portName} is unblocked`);
+    },
+
+    onIndividualPortBlocked(portName){
+        console.log(`port ${portName} is blocked`);
+    },
+
     /* Listen for individual switch event within all child switches within all tables */
     listenForIndividualSwitchEvents(){
         $(function(){
@@ -155,6 +173,7 @@ const presenter = {
                         // console.log("Is checked");
                         // console.log($(this).parent('label').parent('.switch').parent('td').prev().prev().find('span').text());
                         //TODO: Add logic here for if selected individual switch is on
+                        presenter.onIndividualPortUnblocked(portName);
                     });
 
                     $(this).siblings().addClass('green');
@@ -165,6 +184,7 @@ const presenter = {
                     $('#agree').click(() => {
                         // console.log("Is Not checked");
                         //TODO: Add logic here for if selected individual switch is off
+                        presenter.onIndividualPortBlocked(portName);
                     });
 
                     $('#dismiss').click(() => {
