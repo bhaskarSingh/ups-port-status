@@ -92,6 +92,9 @@ const presenter = {
                         $(childSwicheClass).siblings('#profile-switch-lever').removeClass('green');
                         $(this).siblings().removeClass('green');
                         $(this).siblings().addClass('red');
+                        $('table').remove();
+                        view.render();
+                        console.log('dismiss');
                     })
 
                     $('#agree').click(() => {
